@@ -10,7 +10,7 @@ export const benefits = {
         validity: '31-12-2024',
       },
       {
-        id: 13,
+        id: 11,
         benefit_name: 'Free physiotherapy',
         description: 'Free physiotherapy for 1 family member',
         subDescription: 'Earn 300 more points',
@@ -19,7 +19,7 @@ export const benefits = {
         validity: '02/2025',
       },
       {
-        id: 14,
+        id: 21,
         benefit_name: '5% Off on Home Care Visit',
         description: '5% Off on next Home Care Visit',
         subDescription: 'Earn 400 more points',
@@ -39,7 +39,7 @@ export const benefits = {
         subDescription: 'Earn 100 more points',
       },
       {
-        id: 22,
+        id: 21,
         benefit_name: 'Free physiotherapy',
         description: 'Free physiotherapy for 2 family member',
         discount_percentage: 100,
@@ -48,7 +48,7 @@ export const benefits = {
         subDescription: 'Earn 200 more points',
       },
       {
-        id: 23,
+        id: 22,
         benefit_name: '10% Off on Home Care Visit',
         description: '10% Off on next Home Care Visit',
         discount_percentage: 10,
@@ -68,7 +68,7 @@ export const benefits = {
         subDescription: 'Earn 400 more points',
       },
       {
-        id: 32,
+        id: 31,
         benefit_name: 'Free physiotherapy',
         description: 'Free physiotherapy for 4 family member',
         discount_percentage: 100,
@@ -77,7 +77,7 @@ export const benefits = {
         subDescription: 'Earn 200 more points',
       },
       {
-        id: 3,
+        id: 33,
         benefit_name: '20% Off on Home Care Visit',
         description: '20% Off on next Home Care Visit',
         discount_percentage: 20,

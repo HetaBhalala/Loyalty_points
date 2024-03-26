@@ -12,6 +12,7 @@ import React, {useEffect, useState} from 'react';
 import {font, spacing} from '../utils/styles';
 import {colors} from '../utils/color';
 import {benefits} from '../utils/benefits';
+import DropShadow from 'react-native-drop-shadow';
 
 const Benefits = ({data}) => {
   const [benefit, setBenefits] = useState(benefits[data]);
@@ -22,28 +23,30 @@ const Benefits = ({data}) => {
 
   const renderItem = ({item}) => {
     return (
-      <TouchableOpacity style={styles.cardView}>
-        <View style={styles.cardTopView}>
-          <View style={styles.topTextView}>
-            <Text style={styles.benefitTxt}>{item?.benefit_name}</Text>
-            <Text style={styles.descTxt}>{item?.description}</Text>
-          </View>
-          <View style={styles.offView}>
-            <View style={styles.gradientView}>
-              <Text style={styles.offTxt}>{item.discount_percentage}%</Text>
-              <Text style={styles.offTxt}>OFF</Text>
+      <DropShadow  style={styles.shadow}>
+        <TouchableOpacity style={styles.cardView}>
+          <View style={styles.cardTopView}>
+            <View style={styles.topTextView}>
+              <Text style={styles.benefitTxt}>{item?.benefit_name}</Text>
+              <Text style={styles.descTxt}>{item?.description}</Text>
+            </View>
+            <View style={styles.offView}>
+              <View style={styles.gradientView}>
+                <Text style={styles.offTxt}>{item.discount_percentage}%</Text>
+                <Text style={styles.offTxt}>OFF</Text>
+              </View>
             </View>
           </View>
-        </View>
-        <View style={styles.cardBottomView}>
-          <View>
-            <Text style={styles.subDesc}>{item.subDescription}</Text>
+          <View style={styles.cardBottomView}>
+            <View>
+              <Text style={styles.subDesc}>{item.subDescription}</Text>
+            </View>
+            <View style={styles.bookView}>
+              <Text style={styles.subDesc}>Book</Text>
+            </View>
           </View>
-          <View style={styles.bookView}>
-            <Text style={styles.subDesc}>Book</Text>
-          </View>
-        </View>
-      </TouchableOpacity>
+        </TouchableOpacity>
+      </DropShadow>
     );
   };
   return (
@@ -54,7 +57,7 @@ const Benefits = ({data}) => {
         data={benefit}
         renderItem={renderItem}
         keyExtractor={item => item.id}
-        contentContainerStyle={{paddingBottom: spacing.exLg}}
+        contentContainerStyle={{paddingBottom: 60}}
       />
     </View>
   );
@@ -84,23 +87,8 @@ const styles = StyleSheet.create({
   cardView: {
     marginBottom: spacing.base,
     paddingHorizontal: spacing.base,
-    borderRadius: 12,
     backgroundColor: colors.white,
     borderRadius: 10,
-    borderWidth: 1,
-    borderColor: colors.peacock,
-    // Apply shadow properties based on platform
-    // ...Platform.select({
-    //   ios: {
-    //     shadowColor: colors.black,
-    //     shadowOffset: {width: 0, height: 2},
-    //     shadowOpacity: 0.25,
-    //     shadowRadius: 2,
-    //   },
-    //   android: {
-    //     elevation: 5,
-    //   },
-    // }),
   },
 
   cardBottomView: {
@@ -149,5 +137,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingHorizontal: 6,
     backgroundColor: colors.background_blue,
+  },
+  shadow: {
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 0,
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 3,
+    padding: 5,
+    overflow:'hidden'
   },
 });

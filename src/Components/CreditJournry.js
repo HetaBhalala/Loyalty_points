@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 15,
   },
   image:{
-    height:78,
+    height:65,
     width:65
   },
   listStyls:{

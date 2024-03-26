@@ -1,10 +1,12 @@
-import {Dimensions, StyleSheet, Text, View, Platform} from 'react-native';
+import {Dimensions, StyleSheet, Text, View, Platform, TouchableOpacity} from 'react-native';
 import React, {useRef, useState} from 'react';
 import Carousel from 'react-native-snap-carousel';
 import {font, spacing} from '../utils/styles';
 import {colors} from '../utils/color';
 import LinearGradient from 'react-native-linear-gradient';
 import {cardSwiperData} from '../utils/cardSwiperData';
+import DropShadow from 'react-native-drop-shadow';
+
 const width = Dimensions.get('window').width - 10;
 
 const CardSwiper = ({setData}) => {
@@ -17,40 +19,45 @@ const CardSwiper = ({setData}) => {
     setData(cards[index].type);
     setCurrentIndex(index);
   };
+  const handlePress = (index) => {
+    scrollViewRef.current.snapToItem(index); // Scroll to the specified item
+  };
   const renderItem = ({item, index}) => {
     return (
-      <View style={styles.singleCard}>
-        <LinearGradient
-          colors={[item.color3, item.color4]}
-          start={{x: 0, y: 1}}
-          end={{x: 0, y: 1}}
-          style={styles.item}>
-          <View style={styles.cardHeader}>
-            <Text style={styles.nameTxt}>
-              {item.first_name} {item.last_name}
-            </Text>
-            <View style={styles.cardInnerContainer}>
-              <Text style={[styles.cardTxt, {color: item.textColor}]}>
-                {item.type.toUpperCase()}
+      <DropShadow style={styles.shadow}>
+        <TouchableOpacity style={styles.singleCard} onPress={()=>handlePress(index)}>
+          <LinearGradient
+            colors={[item.color3, item.color4]}
+            start={{x: 0, y: 0}}
+            end={{x: 0, y: 1}}
+            style={styles.item}>
+            <View style={styles.cardHeader}>
+              <Text style={styles.nameTxt}>
+                {item.first_name} {item.last_name}
               </Text>
+              <View style={styles.cardInnerContainer}>
+                <Text style={[styles.cardTxt, {color: item.textColor}]}>
+                  {item.type.toUpperCase()}
+                </Text>
+              </View>
             </View>
-          </View>
-          <View>
-            <Text style={styles.smallTxt}>CARD NUMBER</Text>
-            <Text style={styles.cardNumberTxt}>{item.card_number}</Text>
-          </View>
-          <View>
-            <View style={styles.availableView}>
-              <Text style={styles.smallTxt}>Points Available</Text>
-              <Text style={styles.smallTxt}>Expires</Text>
+            <View>
+              <Text style={styles.smallTxt}>CARD NUMBER</Text>
+              <Text style={styles.cardNumberTxt}>{item.card_number}</Text>
             </View>
-            <View style={styles.availableView}>
-              <Text style={styles.pointTxt}>{item.points} pts</Text>
-              <Text style={styles.valTxt}>{item.validity}</Text>
+            <View>
+              <View style={styles.availableView}>
+                <Text style={styles.smallTxt}>Points Available</Text>
+                <Text style={styles.smallTxt}>Expires</Text>
+              </View>
+              <View style={styles.availableView}>
+                <Text style={styles.pointTxt}>{item.points} pts</Text>
+                <Text style={styles.valTxt}>{item.validity}</Text>
+              </View>
             </View>
-          </View>
-        </LinearGradient>
-      </View>
+          </LinearGradient>
+        </TouchableOpacity>
+      </DropShadow>
     );
   };
   return (
@@ -59,7 +66,6 @@ const CardSwiper = ({setData}) => {
       <Carousel
         ref={scrollViewRef}
         sliderWidth={width}
-        // sliderHeight={width}
         itemHeight={350}
         itemWidth={width - 100}
         data={cards}
@@ -69,7 +75,7 @@ const CardSwiper = ({setData}) => {
         onSnapToItem={index => setCurrentIndex(index)}
         onBeforeSnapToItem={handleSnapToItem}
         inactiveSlideOpacity={0.2}
-        containerCustomStyle={{paddingLeft: 20, marginTop: 15}}
+        containerCustomStyle={{paddingLeft: 20}}
       />
     </View>
   );
@@ -83,9 +89,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  shadow: {
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 2,
+    padding: 5,
+  },
   item: {
-    // width: width - 100,
-    // height: 160,
     flex: 1,
     padding: spacing.base,
     justifyContent: 'space-between',
@@ -94,26 +108,12 @@ const styles = StyleSheet.create({
   singleCard: {
     width: width - 100,
     height: 160,
-    // ...Platform.select({
-    //   ios: {
-    //     shadowColor: 'red',
-    //     shadowOffset: {width: 0, height: 2},
-    //     shadowOpacity: 0.25,
-    //     shadowRadius: 5,
-    //   },
-    //   android: {
-    //     elevation: 5,
-    //   },
-    // }),
     borderRadius: 13,
-    // backgroundColor: '#fff',
-    // opacity:0.5
   },
   headerTxt: {
     fontSize: font.size.lg,
     color: colors.bookTxt,
     paddingHorizontal: spacing.md,
-    paddingTop: spacing.exMd,
     fontFamily: font.family.poppins600,
   },
   nameTxt: {

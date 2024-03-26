@@ -17,6 +17,7 @@ const BottomTab = () => {
   return (
     <NavigationContainer>
       <Tab.Navigator
+       initialRouteName="Wallet"
         screenOptions={{
           headerShown: false,
           tabBarStyle: styles.tabStyle, // Set background color here
