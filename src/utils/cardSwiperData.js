@@ -1,0 +1,40 @@
+import { colors } from "./color";
+
+export const cardSwiperData = [
+    {
+      type: 'Silver',
+      user_id: 123123,
+      first_name: 'Archie',
+      last_name: 'Richards',
+      card_number: 9874589654,
+      points: 120,
+      validity: '11/25',
+      color3: colors.silver_dark,
+      color4: colors.silver_light,
+      textColor: colors.silver_txt,
+    },
+    {
+      type: 'Gold',
+      user_id: 123123,
+      first_name: 'Ronald',
+      last_name: 'Richards',
+      card_number: 3434324234,
+      points: 120,
+      validity: '12/24',
+      color3: colors.gold_dark,
+      color4: colors.gold_light,
+      textColor: colors.gold_txt,
+    },
+    {
+      type: 'Platinum',
+      user_id: 123123,
+      first_name: 'Harry',
+      last_name: 'Richards',
+      card_number: 6523654125,
+      points: 120,
+      validity: '6/24',
+      color3: colors.platinum_dark,
+      color4: colors.platinum_light,
+      textColor: colors.platinum_txt,
+    },
+  ];

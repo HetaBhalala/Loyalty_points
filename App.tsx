@@ -6,11 +6,14 @@ import {
   View,
   Platform,
   TouchableOpacity,
+  LogBox,
 } from 'react-native';
 import React, {useState} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 
 const App = () => {
+  LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
+  LogBox.ignoreAllLogs(); //Ignore all log notifications
   const [data, setData] = useState('silver');
   const benefits = {
     silver: [
@@ -96,9 +99,7 @@ const App = () => {
         <FlatList data={benefits[data]} renderItem={renderItem} />
       </View>
       <View style={styles.pentagon}>
-        <View style={styles.pentagonInner}>
-          
-        </View>
+        <View style={styles.pentagonInner}></View>
         <View style={styles.pentagonBefore}>
           <Text>hell</Text>
         </View>
@@ -112,7 +113,7 @@ export default App;
 const styles = StyleSheet.create({
   pentagon: {
     backgroundColor: 'pink',
-    height:140
+    height: 140,
   },
   pentagonInner: {
     width: 90,

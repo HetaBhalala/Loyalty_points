@@ -39,7 +39,14 @@ export const spacing = {
 };
 
 export const font = {
-  family: {},
+  family: {
+    poppins600:'Poppins-SemiBold',
+    poppins400:'Poppins-Regular',
+    raleway600:'Raleway-Bold',
+    sans400:'DMSans-Regular',
+    sans500:'DMSans-Medium',
+    sans700:'DMSans-Bold',
+  },
   size: {
     micro: getFontSize(10),
     nano: getFontSize(11),

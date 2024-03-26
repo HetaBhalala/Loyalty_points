@@ -1,115 +1,56 @@
-import {Dimensions, StyleSheet, Text, View} from 'react-native';
+import {Dimensions, StyleSheet, Text, View, Platform} from 'react-native';
 import React, {useRef, useState} from 'react';
 import Carousel from 'react-native-snap-carousel';
 import {font, spacing} from '../utils/styles';
 import {colors} from '../utils/color';
 import LinearGradient from 'react-native-linear-gradient';
+import {cardSwiperData} from '../utils/cardSwiperData';
 const width = Dimensions.get('window').width - 10;
 
 const CardSwiper = ({setData}) => {
   const scrollViewRef = useRef(null);
-  const cards = [
-    {
-      type: 'Bronz',
-      user_id: 123123,
-      first_name: 'Arthur',
-      last_name: 'Richards',
-      card_number: 3256325632,
-      points: 120,
-      validity: '7/25',
-      color1: colors.peach_dark,
-      color2: colors.peach_light,
-      color3: '#C9C9C9',
-      color4: '#F5F5F5',
-      textColor: '#9A9897',
-      color3: colors.bronz_dark,
-      color4: colors.bronz_light,
-      textColor: colors.bronz_txt,
-    },
-    {
-      type: 'Silver',
-      user_id: 123123,
-      first_name: 'Archie',
-      last_name: 'Richards',
-      card_number: 9874589654,
-      points: 120,
-      validity: '11/25',
-      color1: colors.green_dark,
-      color2: colors.green_light,
-      color3: colors.silver_dark,
-      color4: colors.silver_light,
-      textColor: colors.silver_txt,
-    },
-    {
-      type: 'Gold',
-      user_id: 123123,
-      first_name: 'Ronald',
-      last_name: 'Richards',
-      card_number: 3434324234,
-      points: 120,
-      validity: '12/24',
-      color1: colors.peach_dark,
-      color2: colors.peach_light,
-      color3: colors.gold_dark,
-      color4: colors.gold_light,
-      textColor: colors.gold_txt,
-    },
-    {
-      type: 'Platinum',
-      user_id: 123123,
-      first_name: 'Harry',
-      last_name: 'Richards',
-      card_number: 6523654125,
-      points: 120,
-      validity: '6/24',
-      color1: colors.green_dark,
-      color2: colors.green_light,
-      color3: colors.platinum_dark,
-      color4: colors.peach_light,
-      textColor: colors.platinum_txt,
-    },
-  ];
+  const cards = cardSwiperData;
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const handleSnapToItem = index => {
-    console.log('index', cards[index].type);
     setData(cards[index].type);
     setCurrentIndex(index);
   };
   const renderItem = ({item, index}) => {
     return (
-      <LinearGradient
-        colors={[item.color1, item.color2]}
-        start={{x: 0, y: 0}}
-        end={{x: 1, y: 0}}
-        style={styles.item}>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}>
-          <Text style={styles.nameTxt}>{item.first_name}</Text>
-          <LinearGradient
-            colors={[item.color3, item.color4]}
-            start={{x: 0, y: 0}}
-            end={{x: 0, y: 1}}
-            style={styles.cardInnerContainer}>
-            <Text style={{color: item.textColor}}>{item.type}</Text>
-          </LinearGradient>
-        </View>
-        <View>
-          <Text style={styles.cardNumberTxt}>{item.card_number}</Text>
-        </View>
-        <View>
-          <Text style={styles.pointTxt}>{item.points} pts</Text>
-          <View style={styles.availableView}>
-            <Text style={styles.valTxt}>Available</Text>
-            <Text style={styles.valTxt}>Valid: {item.validity}</Text>
+      <View style={styles.singleCard}>
+        <LinearGradient
+          colors={[item.color3, item.color4]}
+          start={{x: 0, y: 1}}
+          end={{x: 0, y: 1}}
+          style={styles.item}>
+          <View style={styles.cardHeader}>
+            <Text style={styles.nameTxt}>
+              {item.first_name} {item.last_name}
+            </Text>
+            <View style={styles.cardInnerContainer}>
+              <Text style={[styles.cardTxt, {color: item.textColor}]}>
+                {item.type.toUpperCase()}
+              </Text>
+            </View>
           </View>
-        </View>
-      </LinearGradient>
+          <View>
+            <Text style={styles.smallTxt}>CARD NUMBER</Text>
+            <Text style={styles.cardNumberTxt}>{item.card_number}</Text>
+          </View>
+          <View>
+            <View style={styles.availableView}>
+              <Text style={styles.smallTxt}>Points Available</Text>
+              <Text style={styles.smallTxt}>Expires</Text>
+            </View>
+            <View style={styles.availableView}>
+              <Text style={styles.pointTxt}>{item.points} pts</Text>
+              <Text style={styles.valTxt}>{item.validity}</Text>
+            </View>
+          </View>
+        </LinearGradient>
+      </View>
     );
   };
   return (
@@ -119,6 +60,7 @@ const CardSwiper = ({setData}) => {
         ref={scrollViewRef}
         sliderWidth={width}
         // sliderHeight={width}
+        itemHeight={350}
         itemWidth={width - 100}
         data={cards}
         renderItem={renderItem}
@@ -126,7 +68,7 @@ const CardSwiper = ({setData}) => {
         activeSlideAlignment="start"
         onSnapToItem={index => setCurrentIndex(index)}
         onBeforeSnapToItem={handleSnapToItem}
-        inactiveSlideOpacity={0.5}
+        inactiveSlideOpacity={0.2}
         containerCustomStyle={{paddingLeft: 20, marginTop: 15}}
       />
     </View>
@@ -142,38 +84,64 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   item: {
-    width: width - 100,
-    height: 160,
-    backgroundColor: 'pink',
-    borderRadius: 10,
+    // width: width - 100,
+    // height: 160,
+    flex: 1,
     padding: spacing.base,
     justifyContent: 'space-between',
+    borderRadius: 13,
+  },
+  singleCard: {
+    width: width - 100,
+    height: 160,
+    // ...Platform.select({
+    //   ios: {
+    //     shadowColor: 'red',
+    //     shadowOffset: {width: 0, height: 2},
+    //     shadowOpacity: 0.25,
+    //     shadowRadius: 5,
+    //   },
+    //   android: {
+    //     elevation: 5,
+    //   },
+    // }),
+    borderRadius: 13,
+    // backgroundColor: '#fff',
+    // opacity:0.5
   },
   headerTxt: {
     fontSize: font.size.lg,
-    color: colors.white,
-    fontWeight: 'bold',
+    color: colors.bookTxt,
     paddingHorizontal: spacing.md,
-    paddingTop:spacing.exMd
+    paddingTop: spacing.exMd,
+    fontFamily: font.family.poppins600,
   },
   nameTxt: {
-    fontSize: font.size.lg,
+    fontSize: font.size.base,
     color: colors.black,
-    fontWeight: 'bold',
+    fontFamily: font.family.sans700,
+    letterSpacing: 1,
   },
   cardNumberTxt: {
-    fontSize: font.size.md,
-    color: colors.black,
-    fontWeight: '500',
+    fontSize: font.size.semi,
+    color: colors.blackTxt,
+    fontFamily: font.family.sans500,
+    letterSpacing: 1.52,
   },
   pointTxt: {
-    fontSize: font.size.md,
+    fontSize: font.size.mini,
+    color: colors.black39,
+    fontFamily: font.family.sans500,
+  },
+  cardTxt: {
+    fontSize: font.size.mini,
     color: colors.black,
-    fontWeight: 'bold',
+    fontFamily: font.family.poppins400,
   },
   valTxt: {
-    fontSize: font.size.base,
-    color: colors.greyTxt,
+    fontSize: font.size.mini,
+    color: colors.black39,
+    fontFamily: font.family.sans400,
   },
   availableView: {
     flexDirection: 'row',
@@ -182,5 +150,16 @@ const styles = StyleSheet.create({
   cardInnerContainer: {
     padding: spacing.mini,
     borderRadius: 4,
+  },
+  smallTxt: {
+    fontSize: 8,
+    color: colors.darkGreyTxt,
+    fontFamily: font.family.sans400,
+    paddingBottom: 2,
+  },
+  cardHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
 });

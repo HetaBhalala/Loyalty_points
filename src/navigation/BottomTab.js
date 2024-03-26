@@ -8,6 +8,8 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Wallet from '../Screens/Wallet';
 import Message from '../Screens/Message';
 import {colors} from '../utils/color';
+import CustomBottomTab from '../Components/CustomBottomTab';
+import Ranking from '../Screens/Ranking';
 
 const BottomTab = () => {
   const Tab = createBottomTabNavigator();
@@ -16,66 +18,15 @@ const BottomTab = () => {
     <NavigationContainer>
       <Tab.Navigator
         screenOptions={{
-          headerShown: false ,
+          headerShown: false,
           tabBarStyle: styles.tabStyle, // Set background color here
-        }}>
-        <Tab.Screen
-          name="Home"
-          component={Home}
-          options={{
-            
-            tabBarLabel: () => null,
-            tabBarIcon: ({focused, color, size}) => (
-              <MaterialCommunityIcons
-                name="home"
-                color={focused ? colors.black : colors.grey}
-                size={28}
-              />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Wallet"
-          component={Wallet}
-          options={{
-            tabBarLabel: () => null,
-            tabBarIcon: ({focused, color, size}) => (
-              <MaterialCommunityIcons
-                name="wallet"
-                color={focused ? colors.black : colors.grey}
-                size={28}
-              />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Message"
-          component={Message}
-          options={{
-            tabBarLabel: () => null,
-            tabBarIcon: ({focused, color, size}) => (
-              <MaterialCommunityIcons
-                name="email"
-                color={focused ? colors.black : colors.grey}
-                size={28}
-              />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Profile"
-          component={Profile}
-          options={{
-            tabBarLabel: () => null,
-            tabBarIcon: ({focused, color, size}) => (
-              <MaterialCommunityIcons
-                name="face-woman-profile"
-                color={focused ? colors.black : colors.grey}
-                size={28}
-              />
-            ),
-          }}
-        />
+        }}
+        tabBar={(props: any) => <CustomBottomTab {...props} />}>
+        <Tab.Screen name="Home" component={Home} />
+        <Tab.Screen name="Ranking" component={Ranking} />
+        <Tab.Screen name="Wallet" component={Wallet} />
+        <Tab.Screen name="Message" component={Message} />
+        <Tab.Screen name="Profile" component={Profile} />
       </Tab.Navigator>
     </NavigationContainer>
   );

@@ -8,58 +8,18 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import React, {useState} from 'react';
-import LinearGradient from 'react-native-linear-gradient';
+import React, {useEffect, useState} from 'react';
 import {font, spacing} from '../utils/styles';
 import {colors} from '../utils/color';
+import {benefits} from '../utils/benefits';
 
 const Benefits = ({data}) => {
-  const benefits = {
-    Silver: [
-      {
-        id: 1,
-        benefit_name: 'Blood Test',
-        description: 'Check up for 1 family member',
-        subDescription: 'Earn 200 more points',
-        discount_percentage: 70,
-        credit_points: 20,
-        validity: '31-12-2024',
-      },
-    ],
-    Gold: [
-      {
-        id: 2,
-        benefit_name: 'Blood Test',
-        description: 'Check up for 2 family member',
-        discount_percentage: 80,
-        credit_points: 40,
-        validity: '31-12-2024',
-        subDescription: 'Earn 300 more points',
-      },
-    ],
-    Platinum: [
-      {
-        id: 3,
-        benefit_name: 'Blood Test',
-        description: 'Check up for 4 family member',
-        discount_percentage: 100,
-        credit_points: 60,
-        validity: '31-12-2024',
-        subDescription: 'Earn 400 more points',
-      },
-    ],
-    Bronz: [
-      {
-        id: 1,
-        benefit_name: 'Blood Test',
-        description: 'Check up for 1 family member',
-        subDescription: 'Earn 100 more points',
-        discount_percentage: 60,
-        credit_points: 10,
-        validity: '31-12-2024',
-      },
-    ],
-  };
+  const [benefit, setBenefits] = useState(benefits[data]);
+
+  useEffect(() => {
+    setBenefits(benefits[data]);
+  }, [data]);
+
   const renderItem = ({item}) => {
     return (
       <TouchableOpacity style={styles.cardView}>
@@ -69,14 +29,10 @@ const Benefits = ({data}) => {
             <Text style={styles.descTxt}>{item?.description}</Text>
           </View>
           <View style={styles.offView}>
-            <LinearGradient
-              colors={['#dcdce1', '#c2d2e0']}
-              start={{x: 0, y: 0}}
-              end={{x: 0, y: 1}}
-              style={styles.gradientView}>
+            <View style={styles.gradientView}>
               <Text style={styles.offTxt}>{item.discount_percentage}%</Text>
               <Text style={styles.offTxt}>OFF</Text>
-            </LinearGradient>
+            </View>
           </View>
         </View>
         <View style={styles.cardBottomView}>
@@ -84,17 +40,22 @@ const Benefits = ({data}) => {
             <Text style={styles.subDesc}>{item.subDescription}</Text>
           </View>
           <View style={styles.bookView}>
-            <Text style={styles.bookTxt}>Book</Text>
+            <Text style={styles.subDesc}>Book</Text>
           </View>
         </View>
       </TouchableOpacity>
     );
   };
   return (
-    <View>
+    <View style={styles.container}>
       <Text style={styles.benefitHeaderTxt}>Benefits</Text>
-      <FlatList data={benefits[data]} renderItem={renderItem}         keyExtractor={item => item.id}
- />
+      <FlatList
+        showsVerticalScrollIndicator={false}
+        data={benefit}
+        renderItem={renderItem}
+        keyExtractor={item => item.id}
+        contentContainerStyle={{paddingBottom: spacing.exLg}}
+      />
     </View>
   );
 };
@@ -102,40 +63,44 @@ const Benefits = ({data}) => {
 export default Benefits;
 
 const styles = StyleSheet.create({
+  container: {},
   cardTopView: {
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
   topTextView: {
     padding: spacing.base,
+    width: 260,
   },
   offView: {
     borderBottomEndRadius: 12,
     borderBottomStartRadius: 12,
-    height: 50,
+    height: 60,
     alignItems: 'center',
     justifyContent: 'center',
     overflow: 'hidden',
     marginRight: spacing.base,
   },
   cardView: {
-    marginVertical: spacing.base,
+    marginBottom: spacing.base,
     paddingHorizontal: spacing.base,
     borderRadius: 12,
     backgroundColor: colors.white,
     borderRadius: 10,
+    borderWidth: 1,
+    borderColor: colors.peacock,
     // Apply shadow properties based on platform
-    ...Platform.select({
-      ios: {
-        shadowColor: colors.black,
-        shadowOffset: {width: 0, height: 2},
-        shadowOpacity: 0.25,
-        shadowRadius: 2,
-      },
-      android: {
-        elevation: 5,
-      },
-    }),
+    // ...Platform.select({
+    //   ios: {
+    //     shadowColor: colors.black,
+    //     shadowOffset: {width: 0, height: 2},
+    //     shadowOpacity: 0.25,
+    //     shadowRadius: 2,
+    //   },
+    //   android: {
+    //     elevation: 5,
+    //   },
+    // }),
   },
 
   cardBottomView: {
@@ -146,46 +111,43 @@ const styles = StyleSheet.create({
   },
   bookView: {
     padding: spacing.nano,
-    paddingHorizontal: spacing.mini,
+    paddingHorizontal: spacing.small,
     borderWidth: 1,
     borderRadius: 6,
-    borderColor: colors.background_blue,
+    borderColor: colors.peacock,
   },
   benefitTxt: {
-    fontWeight: 'bold',
-    fontSize: font.size.lg,
-    color: colors.black,
+    fontFamily: font.family.poppins600,
+    fontSize: font.size.semiMd,
+    color: colors.bookTxt,
   },
   benefitHeaderTxt: {
-    fontWeight: 'bold',
-    fontSize: font.size.semiLg,
-    color: colors.background_blue,
+    fontFamily: font.family.poppins600,
+    fontSize: font.size.semiXl,
+    color: colors.bookTxt,
   },
   descTxt: {
     fontSize: font.size.base,
     color: colors.black,
-    opacity: 0.6,
+    fontFamily: font.family.poppins400,
   },
   subDesc: {
     fontSize: font.size.base,
-    color: colors.black,
-    opacity: 0.8,
-    fontWeight: '600',
+    color: colors.bookTxt,
+    fontFamily: font.family.poppins600,
   },
   offTxt: {
-    fontWeight: 'bold',
-    fontSize: font.size.mini,
-    color: colors.black,
+    fontFamily: font.family.poppins600,
+    fontSize: font.size.nano,
+    color: colors.bookTxt,
+    paddingHorizontal: 5,
   },
-  bookTxt: {
-    fontSize: font.size.base,
-    color: colors.background_blue,
-    fontWeight: '600',
-  },
-  gradientView:{
-    height: 50,
+
+  gradientView: {
+    height: 70,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: 4,
-  }
+    paddingHorizontal: 6,
+    backgroundColor: colors.background_blue,
+  },
 });

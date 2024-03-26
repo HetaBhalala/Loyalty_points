@@ -2,21 +2,10 @@ import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {colors} from '../utils/color';
 import {spacing} from '../utils/styles';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const circleSize = 20;
 const StepIndicator = ({current, steps}) => {
-  const Circle = () => {
-    return (
-      <View style={styles.circle}>
-        <MaterialCommunityIcons
-          name="check"
-          size={18}
-          color={colors.black}
-        />
-      </View>
-    );
-  };
+
   const EmptyCircle = () => {
     return <View style={styles.emptyCircle} />;
   };
@@ -27,10 +16,10 @@ const StepIndicator = ({current, steps}) => {
       </View>
     );
   };
-  const Seperator = () => {
+  const Seperator = ({opacity}) => {
     return (
       <View style={styles.seperatorContainer}>
-        <View style={styles.seperator} />
+        <View style={styles.seperator(opacity)} />
       </View>
     );
   };
@@ -41,31 +30,31 @@ const StepIndicator = ({current, steps}) => {
         if (index < current) {
           return (
             <>
-              <Circle />
-              <Seperator />
+              <HalfCircle key={index}/>
+              <Seperator opacity={0.49} />
             </>
           );
         } else if (index == current) {
           if (index != steps.length - 1) {
             return (
               <>
-                <HalfCircle />
-                <Seperator />
+                <HalfCircle  key={index}/>
+                <Seperator opacity={0.49} />
               </>
             );
           } else {
-            return <HalfCircle />;
+            return <HalfCircle  key={index}/>;
           }
         } else {
           if (index != steps.length - 1) {
             return (
               <>
-                <EmptyCircle />
-                <Seperator />
+                <EmptyCircle  key={index}/>
+                <Seperator opacity={0.49} />
               </>
             );
           } else {
-            return <EmptyCircle />;
+            return <EmptyCircle  key={index}/>;
           }
         }
       })}
@@ -80,44 +69,40 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.semiXXL,
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingTop:spacing.base
+    paddingTop: spacing.base,
   },
   emptyCircle: {
     height: circleSize,
     width: circleSize,
-    borderWidth: 1,
+    borderWidth: 2,
     borderRadius: 100,
-    borderColor: colors.white,
+    borderColor: colors.peacock,
+    opacity: 0.49,
   },
-  circle: {
-    height: circleSize,
-    width: circleSize,
-    backgroundColor: colors.white,
-    borderRadius: 100,
-    alignItems:'center',
-    justifyContent:'center'
-  },
+
   circleBorder: {
     height: circleSize,
     width: circleSize,
-    borderWidth: 1,
+    borderWidth: 2,
     borderRadius: 100,
     alignItems: 'center',
     justifyContent: 'center',
-    borderColor: colors.white,
+    borderColor: colors.peacock,
   },
   innerCircle: {
     height: circleSize / 2,
     width: circleSize / 2,
     borderWidth: 1,
     borderRadius: 100,
-    backgroundColor: colors.white,
+    borderColor: colors.peacock,
+    backgroundColor: colors.peacock,
   },
   seperatorContainer: {width: circleSize, alignItems: 'center'},
-  seperator: {
+  seperator: opacity => ({
     width: 60,
     height: 1,
     flexDirection: 'column',
-    backgroundColor: colors.white,
-  },
+    backgroundColor: colors.peacock,
+    opacity: opacity,
+  }),
 });

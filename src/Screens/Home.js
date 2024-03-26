@@ -12,7 +12,7 @@ import React, {useState} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import {imagePath} from '../utils/imagePath';
 import Benefits from '../Components/Benefits';
-import {spacing} from '../utils/styles';
+import {dimensions, font, spacing} from '../utils/styles';
 import {colors} from '../utils/color';
 import CardSwiper from '../Components/CardSwiper';
 import CreditJournry from '../Components/CreditJournry';
@@ -25,27 +25,34 @@ const Home = () => {
     <View style={{flex: 1}}>
       <View style={styles.blueContainer}>
         <View style={styles.header}>
-          <Image source={imagePath.DRAWER} style={styles.drawer} />
-          <Image source={imagePath.PROFILE} style={styles.profile} />
+          <View style={styles.drawerView}>
+            <Image source={imagePath.DRAWER} style={styles.drawer} />
+          </View>
+          <View>
+            <Text style={styles.cardTxt}>Cards</Text>
+          </View>
+          <View>
+            <Image source={imagePath.PROFILE} style={styles.profile} />
+          </View>
         </View>
         <View>
           <CreditJournry />
-          <StepIndicator
-            circleSize={'10'}
-            seperatorHeight={5}
-            current={
-              data == 'Bronz'
-                ? 0
-                : data == 'Silver'
-                ? 1
-                : data == 'Gold'
-                ? 2
-                : data == 'Platinum'
-                ? 3
-                : 0
-            }
-            steps={[1, 2, 3, 4]}
-          />
+          <View style={styles.stepView}>
+            <StepIndicator
+              circleSize={'10'}
+              seperatorHeight={5}
+              current={
+                data == 'Silver'
+                  ? 0
+                  : data == 'Gold'
+                  ? 1
+                  : data == 'Platinum'
+                  ? 2
+                  : 0
+              }
+              steps={[1, 2, 3]}
+            />
+          </View>
           <CardSwiper setData={setData} />
         </View>
       </View>
@@ -68,22 +75,40 @@ const styles = StyleSheet.create({
   profile: {
     height: 40,
     width: 40,
-    borderRadius: 100,
+    borderRadius: 10,
     margin: spacing.base,
   },
-  drawer: {
-    height: 20,
-    width: 20,
+  drawerView: {
+    backgroundColor: colors.white,
+    height: 38,
+    width: 38,
     margin: spacing.base,
-    tintColor:colors.white
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 5,
+  },
+  drawer: {
+    height: 25,
+    width: 25,
+    // tintColor: colors.white,
   },
   benefitsView: {
     flex: 0.35,
     padding: spacing.base,
-    backgroundColor: colors.background_light,
+    backgroundColor: colors.white,
   },
-  header:{
-    flexDirection:'row',
-    justifyContent:'space-between'
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  stepView: {
+    width: 285,
+    alignSelf: 'center',
+  },
+  cardTxt:{
+    fontFamily: font.family.raleway600, // Use the actual font family name
+    color:colors.black,
+    fontSize:font.size.lg
   }
 });
