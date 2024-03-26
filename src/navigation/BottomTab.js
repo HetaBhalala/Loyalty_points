@@ -1,10 +1,9 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet} from 'react-native';
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Home from '../Screens/Home';
 import Profile from '../Screens/Profile';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Wallet from '../Screens/Wallet';
 import Message from '../Screens/Message';
 import {colors} from '../utils/color';

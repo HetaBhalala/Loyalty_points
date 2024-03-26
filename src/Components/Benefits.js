@@ -1,12 +1,9 @@
 import {
   FlatList,
-  ScrollView,
   StyleSheet,
   Text,
   View,
-  Platform,
   TouchableOpacity,
-  Image,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {font, spacing} from '../utils/styles';
@@ -57,7 +54,7 @@ const Benefits = ({data}) => {
         data={benefit}
         renderItem={renderItem}
         keyExtractor={item => item.id}
-        contentContainerStyle={{paddingBottom: 60}}
+        contentContainerStyle={{paddingBottom: 130}}
       />
     </View>
   );
@@ -73,6 +70,7 @@ const styles = StyleSheet.create({
   },
   topTextView: {
     padding: spacing.base,
+    paddingBottom:0,
     width: 260,
   },
   offView: {
@@ -106,12 +104,12 @@ const styles = StyleSheet.create({
   },
   benefitTxt: {
     fontFamily: font.family.poppins600,
-    fontSize: font.size.semiMd,
+    fontSize: font.size.md,
     color: colors.bookTxt,
   },
   benefitHeaderTxt: {
     fontFamily: font.family.poppins600,
-    fontSize: font.size.semiXl,
+    fontSize: font.size.lg,
     color: colors.bookTxt,
   },
   descTxt: {

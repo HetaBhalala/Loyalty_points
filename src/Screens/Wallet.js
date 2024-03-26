@@ -1,15 +1,10 @@
 import {
-  FlatList,
-  ScrollView,
   StyleSheet,
   Text,
   View,
-  Platform,
-  TouchableOpacity,
   Image,
 } from 'react-native';
 import React, {useState} from 'react';
-import LinearGradient from 'react-native-linear-gradient';
 import {imagePath} from '../utils/imagePath';
 import Benefits from '../Components/Benefits';
 import {dimensions, font, spacing} from '../utils/styles';
@@ -35,15 +30,11 @@ const Wallet = () => {
             <Image source={imagePath.PROFILE} style={styles.profile} />
           </View>
         </View>
-        <View style={{height: '85%'}}>
-          <View style={{height: '40%'}}>
-            <View style={{height:'70%',backgroundColor:'red'}}>
-              <CreditJournry />
-            </View>
+        <View style={{justifyContent: 'space-between'}}>
+          <View style={{}}>
+            <CreditJournry />
             <View style={styles.stepView}>
               <StepIndicator
-                circleSize={'10'}
-                seperatorHeight={5}
                 current={
                   data == 'Silver'
                     ? 0
@@ -76,7 +67,6 @@ export default Wallet;
 const styles = StyleSheet.create({
   blueContainer: {
     backgroundColor: colors.background_blue,
-    flex: 0.65,
   },
   profile: {
     height: 40,
@@ -96,26 +86,22 @@ const styles = StyleSheet.create({
   drawer: {
     height: 25,
     width: 25,
-    // tintColor: colors.white,
   },
   benefitsView: {
-    flex: 0.35,
+    height: dimensions.fullHeight * 0.4,
     backgroundColor: colors.background_blue,
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    height: '15%',
   },
   stepView: {
     width: 285,
     alignSelf: 'center',
-    height:'30%',
-    backgroundColor:'pink'
   },
   cardTxt: {
-    fontFamily: font.family.raleway600, // Use the actual font family name
+    fontFamily: font.family.raleway600, 
     color: colors.black,
     fontSize: font.size.lg,
   },
@@ -125,5 +111,8 @@ const styles = StyleSheet.create({
     padding: spacing.base,
     backgroundColor: colors.white,
   },
-  cardSwiper:{height: '60%',justifyContent:'flex-end',paddingBottom:spacing.base}
+  cardSwiper: {
+    justifyContent: 'flex-end',
+    paddingBottom: spacing.base,
+  },
 });

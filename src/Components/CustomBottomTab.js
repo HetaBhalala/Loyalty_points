@@ -5,11 +5,9 @@ import {
   Image,
   Text,
   StyleSheet,
-  Platform,
 } from 'react-native';
 import {imagePath} from '../utils/imagePath';
 import {colors} from '../utils/color';
-import {dimensions, spacing} from '../utils/styles';
 import DropShadow from 'react-native-drop-shadow';
 
 const CustomBottomTab = ({state, descriptors, navigation}) => {

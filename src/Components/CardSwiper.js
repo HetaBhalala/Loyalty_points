@@ -1,4 +1,4 @@
-import {Dimensions, StyleSheet, Text, View, Platform, TouchableOpacity} from 'react-native';
+import {Dimensions, StyleSheet, Text, View,  TouchableOpacity} from 'react-native';
 import React, {useRef, useState} from 'react';
 import Carousel from 'react-native-snap-carousel';
 import {font, spacing} from '../utils/styles';
